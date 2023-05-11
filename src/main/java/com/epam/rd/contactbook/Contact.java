@@ -2,7 +2,7 @@ package com.epam.rd.contactbook;
 
 public class Contact {
     private String contactName;
-    private PhoneNumber;
+    private ContactInfo phoneNumber;
     private Email[] emails = new Email[3];
     private Social[] socialM = new Social[5];
 
@@ -104,9 +104,27 @@ addEpamEmail("some", "one").getValue() will result to some_one@epam.com
         }
         return null;
     }
+/*
+addPhoneNumber(int code, String number)
+Adds a contact info entry for the phone number.
+Please, implement this method using an anonymous class.
+Use "Tel" for the entry title.
+addPhoneNumber(44, "444 444-44-44").getValue() will result to +44 444 444-44-44
+*/
 
     public ContactInfo addPhoneNumber(int code, String number) {
         //Implement this method
+        String phoneNumber = "+"+code+" "+number;
+        ContactInfo phone = new ContactInfo(){
+            public String getTitle(){
+                return "Tel";
+            }
+            public String getValue(){
+                return phoneNumber;
+            }
+        };
+        this.phoneNumber = phone;
+        return phone;
     }
 
     public Social addTwitter(String twitterId) {
