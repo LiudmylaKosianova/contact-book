@@ -45,7 +45,6 @@ Implement as public static nested class. Use "Email" for the entry title.
              return email;
          }
 
-
     }
 /*
 Contact.Social - A ContactInfo implementation containing a social media link/id.
@@ -64,7 +63,6 @@ Make sure it is not possible to rename contact to have null or empty value as th
         if(newName != null || !newName.isEmpty() ){
             this.contactName = newName;
         }
-
     }
 /*
 addEmail(String localPart, String domain)
@@ -73,11 +71,38 @@ addEmail("someone", "somewhere.com").getValue() will result to someone@somewhere
 */
     public Email addEmail(String localPart, String domain) {
         //Implement this method
+        Email email = new Email(localPart,domain);
+        for(int i = 0; i<3; i++){
+            if(emails[i] == null){
+                emails[i] = email;
+                return email;
+            }
+        }
+        return null;
     }
 
-
+/*
+* addEpamEmail(String firstname, String lastname)
+Adds a special email entry with "epam.com" domain.
+Please, implement this method using an anonymous extension of the Email class.
+Use "Epam Email" for the entry title.
+addEpamEmail("some", "one").getValue() will result to some_one@epam.com
+*/
     public Email addEpamEmail(String firstname, String lastname) {
         //Implement this method
+        String localPort = firstname+"_"+lastname;
+        Email email = new Email(localPort, "epam.com"){
+            public String getTitle(){
+                return "Epam Email";
+            }
+        };
+        for(int i = 0; i<3; i++){
+            if(emails[i] == null){
+                emails[i] = email;
+                return email;
+            }
+        }
+        return null;
     }
 
     public ContactInfo addPhoneNumber(int code, String number) {
