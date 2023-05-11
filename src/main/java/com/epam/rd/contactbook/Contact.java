@@ -2,8 +2,42 @@ package com.epam.rd.contactbook;
 
 public class Contact {
 
+    private String contactName;
+
     public Contact(String contactName) {
         //Implement this method
+        this.contactName = contactName;
+    }
+/*
+Contact.NameContactInfo - A ContactInfo implementation providing the name of the contact.
+Implement as private non-static nested class. Use "Name" for the entry title.
+It must not have its own fields. It must use fields of the bounded Contact instance instead.
+*/
+    private class NameContactInfo implements ContactInfo{
+        public String getTitle(){
+            return "Name";
+        }
+        public String getValue(){
+            return contactName;
+        }
+    }
+
+/*
+Contact.Email - A ContactInfo implementation containing an email.
+Implement as public static nested class. Use "Email" for the entry title.
+*/
+
+    public static class Email{
+        String title = "Email";
+        String value;
+    }
+/*
+Contact.Social - A ContactInfo implementation containing a social media link/id.
+Implement as public static nested class. Let the user of the class define the title.
+*/
+
+    public static Social{
+
     }
 
     public void rename(String newName) {
