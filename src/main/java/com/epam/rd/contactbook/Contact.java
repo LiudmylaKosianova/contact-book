@@ -2,6 +2,10 @@ package com.epam.rd.contactbook;
 
 public class Contact {
     private String contactName;
+    private PhoneNumber;
+    private Email[] emails = new Email[3];
+    private Social[] socialM = new Social[5];
+
 
     public Contact(String contactName) {
         //Implement this method
@@ -20,6 +24,9 @@ It must not have its own fields. It must use fields of the bounded Contact insta
             return contactName;//is this how I use the field of the bounded Contact instance?
         }
     }
+    public NameContactInfo getNameContactInfo(){
+        return new NameContactInfo();
+    }
 
 /*
 Contact.Email - A ContactInfo implementation containing an email.
@@ -27,11 +34,15 @@ Implement as public static nested class. Use "Email" for the entry title.
 */
 
     public static class Email implements ContactInfo{
+        String email = "";
+        public Email(String localPort, String domain){
+            this.email = localPort +"@"+ domain;
+        }
          public String getTitle(){
              return "Email";
          }
          public String getValue(){
-             return null;//I don't know what to return here!
+             return email;
          }
 
 
