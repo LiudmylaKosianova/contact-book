@@ -3,6 +3,7 @@ package com.epam.rd.contactbook;
 public class Contact {
     private String contactName;
     private ContactInfo phoneNumber;
+    private boolean numberSet = false;
     private Email[] emails = new Email[3];
     private Social[] socialM = new Social[5];
 
@@ -126,17 +127,21 @@ addPhoneNumber(44, "444 444-44-44").getValue() will result to +44 444 444-44-44
 
     public ContactInfo addPhoneNumber(int code, String number) {
         //Implement this method
-        String phoneNumber = "+"+code+" "+number;
-        ContactInfo phone = new ContactInfo(){
-            public String getTitle(){
-                return "Tel";
-            }
-            public String getValue(){
-                return phoneNumber;
-            }
-        };
-        this.phoneNumber = phone;
-        return phone;
+        if(!numberSet){
+            String phoneNumber = "+"+code+" "+number;
+            ContactInfo phone = new ContactInfo(){
+                public String getTitle(){
+                    return "Tel";
+                }
+                public String getValue(){
+                    return phoneNumber;
+                }
+            };
+            this.phoneNumber = phone;
+            numberSet = true;
+            return phone;
+        }
+        return null;
     }
 
     public Social addTwitter(String twitterId) {
