@@ -51,7 +51,19 @@ Contact.Social - A ContactInfo implementation containing a social media link/id.
 Implement as public static nested class. Let the user of the class define the title.
 */
 
-    public static Social{
+    public static class Social implements ContactInfo{
+        String id = "";
+        String title = "";
+        public Social(String title, String id){
+            this.title = title;
+            this.id = id;
+        }
+        public String getTitle(){
+            return title;
+        }
+        public String getValue(){
+            return id;
+        }
 
     }
 /*
@@ -60,7 +72,7 @@ Make sure it is not possible to rename contact to have null or empty value as th
 */
     public void rename(String newName) {
         //Implement this method
-        if(newName != null || !newName.isEmpty() ){
+        if(newName != null && newName.length()!=0){
             this.contactName = newName;
         }
     }
@@ -129,18 +141,97 @@ addPhoneNumber(44, "444 444-44-44").getValue() will result to +44 444 444-44-44
 
     public Social addTwitter(String twitterId) {
         //Implement this method
+        Social newSocial = new Social("Twitter", twitterId){
+        };
+        for(int i = 0; i<5; i++){
+            if(socialM[i]==null){
+                socialM[i] = newSocial;
+                return newSocial;
+            }
+        }
+        return null;
     }
 
     public Social addInstagram(String instagramId) {
         //Implement this method
+        Social newSocial = new Social("Instagram", instagramId){
+        };
+        for(int i = 0; i<5; i++){
+            if(socialM[i]==null){
+                socialM[i] = newSocial;
+                return newSocial;
+            }
+        }
+        return null;
     }
 
     public Social addSocialMedia(String title, String id) {
         //Implement this method
+        Social newSocial = new Social (title, id);
+        for(int i = 0; i<5; i++){
+            if(socialM[i]==null){
+                socialM[i] = newSocial;
+                return newSocial;
+            }
+        }
+        return null;
     }
+/*
+One more method that the Contact class have is the getInfo() method.
+This method returns an array containing the ContactInfo entries in the following order:
 
+name contact info
+phone number contact info (if set)
+email entries in order of addition (if any added)
+social media entries in order of addition (if any added)
+Resulting array must not contain any null values.
+* */
     public ContactInfo[] getInfo() {
         //Implement this method
+        int emailsNumber = 0;
+        for(int i = 0; i<3; i++){
+            if(emails[i]!=null){
+                emailsNumber++;
+            }
+        }
+
+        int socialsNumber = 0;
+        for(int i = 0; i<5; i++){
+            if(socialM[i]!=null){
+                socialsNumber++;
+            }
+        }
+
+        int infoLength = emailsNumber + socialsNumber + 1;
+        if(phoneNumber!=null){
+            infoLength++;
+        }
+        ContactInfo[] answer = new ContactInfo[infoLength];
+        answer[0] = getNameContactInfo();
+
+        if(phoneNumber!=null){
+            answer[1] = phoneNumber;
+            int socialsPosition = 2;
+            if(emailsNumber>0){
+                System.arraycopy(emails,0,answer,2,emailsNumber);
+                socialsPosition+=emailsNumber;
+            }
+            if(socialsNumber>0){
+                System.arraycopy(socialM,0,answer,socialsPosition,socialsNumber);
+            }
+        }else{
+            int socialsPosition = 1;
+            if(emailsNumber>0){
+                System.arraycopy(emails,0,answer,1,emailsNumber);
+                socialsPosition+=emailsNumber;
+            }
+            if(socialsNumber>0){
+                System.arraycopy(socialM,0,answer,socialsPosition,socialsNumber);
+            }
+        }
+
+        return answer;
+
     }
 
 }
